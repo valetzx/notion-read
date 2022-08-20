@@ -1,6 +1,7 @@
 import BLOG from '@/blog.config'
 import Link from 'next/link'
 import React from 'react'
+import TagItemMini from './TagItemMini'
 import CONFIG_FUKA from '../config_fuka'
 import Card from './Card'
 
@@ -12,6 +13,22 @@ const BlogCard = ({ post, showSummary }) => {
         key={post.id}
         className="animate__animated animate__fadeIn flex flex-col-reverse justify-between duration-300"
       >
+        <div className="text-gray-400 justify-between flex">
+        <Link href={`/category/${post.category}`} passHref>
+          <a className="cursor-pointer font-light text-sm hover:underline hover:text-indigo-700 dark:hover:text-indigo-400 transform">
+            <i className="mr-1 far fa-folder" />
+          {post.category}
+          </a>
+        </Link>
+        <div className="md:flex-nowrap flex-wrap md:justify-start inline-block">
+          <div>
+          {' '}
+          {post.tagItems.map(tag => (
+            <TagItemMini key={tag.name} tag={tag} />
+          ))}
+          </div>
+        </div>
+      </div>
         <div className="p-2 flex flex-col w-full">
           <Link href={`${BLOG.SUB_PATH}/article/${post.slug}`} passHref>
             <a
